@@ -13,6 +13,10 @@ app.get('/calculatePublicKey', (req, res) => {
   res.status(200)
 })
 
+app.get('/bitcoinTransactions', (req, res) => {
+  
+})
+
 app.listen('3000', (req, res) => {
   console.log("Listening on port 3000")
 })
