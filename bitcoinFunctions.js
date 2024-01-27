@@ -6,14 +6,19 @@ const calculatePublicKey = (privateKey) => {
     const publicKey = privateKey.toPublicKey()
     const address = publicKey.toAddress()
     console.log('address is', address.toString())
-    return address
+    return address.toString()
 }
 
-const bitcoinTransactions = (publicKey) => {
-    const url = `https://blockstream.info/api/address/${publicKey}/txs`
-    const response = axios.get(url)
-    console.log(response.data)
-    return response
+const bitcoinTransactions = async (address) => {
+    const response = await axios({
+        baseURL: `https://rest.cryptoapis.io/blockchain-data/bitcoin/testnet/addresses/${address}/transactions?`,
+        headers: {
+            'Content-Type': 'application/json',
+            'X-API-Key': '76cbc7b242f9cfc3a7b1f14d8f92c663c8cb878d',
+        },
+    })
+
+    console.log('transactions',response.data.data.items)
 }
 
-module.exports = { calculatePublicKey }
+module.exports = { calculatePublicKey, bitcoinTransactions }

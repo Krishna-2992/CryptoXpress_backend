@@ -1,7 +1,7 @@
 const express = require('express')
 
 const app = express()
-const { calculatePublicKey } = require('./bitcoinFunctions')
+const { calculatePublicKey, bitcoinTransactions } = require('./bitcoinFunctions')
 
 app.get('/', (req, res) => {
 
@@ -14,7 +14,8 @@ app.get('/calculatePublicKey', (req, res) => {
 })
 
 app.get('/bitcoinTransactions', (req, res) => {
-  
+  res.send(bitcoinTransactions(req.query.address))
+  res.status(200)
 })
 
 app.listen('3000', (req, res) => {
