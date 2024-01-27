@@ -8,7 +8,7 @@ async function main() {
     //     `${SERVER_URL}/calculatePublicKey?privateKey=${privateKey}`
     // )
     const response = await axios('https://catfact.ninja/fact')
-    console.log(response)
     console.log(response.data)
+    return response.data.fact
 }
 main()
