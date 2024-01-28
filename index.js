@@ -1,13 +1,14 @@
 const express = require('express')
 
 const {
-  calculatePublicKey,
-  bitcoinTransactions,
-  transferBitcoin,
+    calculatePublicKey,
+    bitcoinTransactions,
 } = require('./bitcoinFunctions')
 
+const { transferBitcoin } = require('./sendTransaction')
+
 const app = express()
-app.use(express.json());
+app.use(express.json())
 
 app.get('/', (req, res) => {
     res.send('Hello World')
@@ -23,30 +24,11 @@ app.get('/bitcoinTransactions', (req, res) => {
     res.status(200)
 })
 
-app.get('/transferBitcoin', (req, res) => {
-  if (!req.body || Object.keys(req.body).length === 0) {
-      return res.status(400).send('Request body is empty');
-  }
-
-  console.log('fsjdfhfjs')
-  console.log(req.body)
-
-  const { sender, receiver, amount, privateKey } = req.body;
-  transferBitcoin(sender, receiver, amount, privateKey) 
-  res.send('fdh ')
-});
-
-app.get('/transferBitcoin', (req, res) => {
-    const body = req
-     // Ensure that the body-parser is properly configured to parse JSON data
-
-    // transferBitcoin(body.sender, body.reciever, body.amount, body.privateKey)
-    // .then(result => {
-    //     res.status(200).send(result);
-    // })
-    // .catch(error => {
-    //     res.status(400).send(error.message);
-    // });
+app.get('/transferBitcoin', async (req, res) => {
+    console.log(req.body)
+    const { sender, receiver, amount, privateKey } = req.body
+    const result = await transferBitcoin(privateKey, amount, receiver, 'testnet', sender)
+    res.status(200).send(result)
 })
 
 app.listen('3000', (req, res) => {
