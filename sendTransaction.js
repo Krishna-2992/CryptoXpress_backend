@@ -5,6 +5,7 @@ const ecpair = require('ecpair')
 
 const transferBitcoin = async (privateKey, value, receiver, env, address) => {
     try {
+      console.log(privateKey, value, receiver, env, address)
         const createTxResponse = await createBTCTx(
             receiver,
             value,
@@ -58,6 +59,10 @@ const createBTCTx = async (toAddress, value, env, fromAddress) => {
         const valueInSatoshi = value * 100000000
         // console.log(valueInSatoshi);
         // console.log("Vivek bhai ",toAddress, value, env, fromAddress);
+        console.log('fromAddress', fromAddress)
+        console.log('toAddress', toAddress)
+        console.log('value', value)
+        console.log('env', env)
         if (!fromAddress || !toAddress || !value || !env) {
             return {
                 code: 0,
@@ -186,7 +191,7 @@ const sendBTCTx = async (tx, toSign, signatures, pubkeys, env) => {
         if (!tx || !toSign || !signatures || !pubkeys || !env) {
             return {
                 code: 0,
-                message: 'invalid/insufficient parameters',
+                message: 'invalid/insufficient parameters provided',
             }
         }
         let url
