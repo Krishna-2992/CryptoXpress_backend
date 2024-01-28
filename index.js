@@ -24,8 +24,7 @@ app.get('/bitcoinTransactions', (req, res) => {
     res.status(200)
 })
 
-app.get('/transferBitcoin', async (req, res) => {
-    console.log(req.body)
+app.post('/transferBitcoin', async (req, res) => {
     const { sender, receiver, amount, privateKey } = req.body
     const result = await transferBitcoin(privateKey, amount, receiver, 'testnet', sender)
     res.status(200).send(result)
