@@ -23,7 +23,7 @@ const bitcoinTransactions = async (address) => {
 
 let transferBitcoin = async (
     senderAddress,
-    recieverAddress,
+    receiverAddress,
     amountToSend,
     privateKey
 ) => {
@@ -79,7 +79,7 @@ let transferBitcoin = async (
         }
 
         transaction.from(inputs)
-        transaction.to(recieverAddress, satoshiToSend)
+        transaction.to(receiverAddress, satoshiToSend)
         transaction.fee(fee)
         transaction.change(senderAddress)
         transaction.sign(privateKey)
@@ -101,11 +101,11 @@ let transferBitcoin = async (
                 'X-API-Key': '76cbc7b242f9cfc3a7b1f14d8f92c663c8cb878d',
             },
         })
-
+        console.log('label222')
         console.log(result.data)
         return result.data.data
     } catch (error) {
-        console.log(error.response)
+        console.log(error)
         console.log('💥💥💥💥💥')
         return 'error'
     }
